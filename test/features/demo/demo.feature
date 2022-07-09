@@ -1,6 +1,6 @@
 Feature: demo feature
 
-    @demo
+    @demo1
     Scenario Outline: Run demo feature
         Given user launches webbrowser
         When search with <searchItem>
