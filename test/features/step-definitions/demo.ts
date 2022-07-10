@@ -31,7 +31,7 @@ Then(/^url should match with (.*)$/, async function(ExpectedUrl) {
 
 Given(/^A webpage is opened$/, async function(){
     console.log('Before opening browser...');
-    await browser.url("/inputs");
+    await browser.url("/checkboxes");
     await browser.setTimeout({implicit:15000,pageLoad: 10000}); //wait for 15 seconds for the element to appear & pageload applicable to entire page
     await browser.maximizeWindow();
     await browser.pause(5000);
@@ -48,6 +48,8 @@ When(/^perform web interactions$/,async function(){
         3. click and type
         4. Slow Typing
     */
+    //Input data slowly
+    /*
     let num = 12345
     let strNum = num.toString();
     let elem = await $(`input[type=number]`);
@@ -59,6 +61,46 @@ When(/^perform web interactions$/,async function(){
         await browser.pause(1000);
         await browser.keys(numChar);
     }
-    
-    //await browser.debug();
+    */
+    //Select data from dropdown
+    // let elem = await $(`//select/option[@selected="selected"]`);
+    // let val = await elem.getText();
+    // chai.expect(val).to.equal("Please select an option");
+    // await browser.pause(5000);
+
+    //select by attribute or text or index
+    //let elem = await $(`#dropdown`);
+    //await elem.selectByVisibleText("Option 1");
+    // await elem.selectByAttribute("value","2");
+    // //await elem.selectByIndex(2);
+
+    //Retreive all options
+    // let elemArr = await $$(`//select/option`);
+    // let arr = [];
+    // for(let i=0;i<elemArr.length;i++){
+    //         let elem = elemArr[i];
+    //         let val = await elem.getText();
+    //         console.log(val);
+    //         arr.push(val);
+    // }
+    // //await browser.pause(5000);
+    // console.log(`>> options array : ${arr})`);
+
+    //Select a checkbox, assert and select all options
+    let elem = await $(`//form[@id="checkboxes"]/input[2]`);
+    let selStatus = await elem.isSelected();
+    chai.expect(selStatus).to.be.true;
+    if(selStatus){
+        await elem.click();
+    }
+
+    let elemArr = await $$(`//form[@id="checkboxes"]/input`);
+    for(let i=0; i < elemArr.length;i++){
+        let ele = elemArr[i];
+        if(!await ele.isSelected()){
+            ele.click();
+        }
+    }
+    await browser.pause(3000);
+
 })
