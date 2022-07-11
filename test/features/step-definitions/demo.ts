@@ -31,7 +31,7 @@ Then(/^url should match with (.*)$/, async function(ExpectedUrl) {
 
 Given(/^A webpage is opened$/, async function(){
     console.log('Before opening browser...');
-    await browser.url("/checkboxes");
+    await browser.url("/windows");
     await browser.setTimeout({implicit:15000,pageLoad: 10000}); //wait for 15 seconds for the element to appear & pageload applicable to entire page
     await browser.maximizeWindow();
     await browser.pause(5000);
@@ -87,20 +87,45 @@ When(/^perform web interactions$/,async function(){
     // console.log(`>> options array : ${arr})`);
 
     //Select a checkbox, assert and select all options
-    let elem = await $(`//form[@id="checkboxes"]/input[2]`);
-    let selStatus = await elem.isSelected();
-    chai.expect(selStatus).to.be.true;
-    if(selStatus){
-        await elem.click();
-    }
+    // let elem = await $(`//form[@id="checkboxes"]/input[2]`);
+    // let selStatus = await elem.isSelected();
+    // chai.expect(selStatus).to.be.true;
+    // if(selStatus){
+    //     await elem.click();
+    // }
 
-    let elemArr = await $$(`//form[@id="checkboxes"]/input`);
-    for(let i=0; i < elemArr.length;i++){
-        let ele = elemArr[i];
-        if(!await ele.isSelected()){
-            ele.click();
-        }
-    }
+    // let elemArr = await $$(`//form[@id="checkboxes"]/input`);
+    // for(let i=0; i < elemArr.length;i++){
+    //     let ele = elemArr[i];
+    //     if(!await ele.isSelected()){
+    //         ele.click();
+    //     }
+    // }
+
+    await (await $(`=Click Here`)).click();
+    await (await $(`=Elemental Selenium`)).click();
+    let parentWinHandle = await browser.getWindowHandle();
+    let currWinTitle = await browser.getTitle(); 
+    console.log(`>> title : ${currWinTitle}`);
     await browser.pause(3000);
 
+    let winHandles = await browser.getWindowHandles();
+    for(let i=0; i< winHandles.length; i++){
+        console.log(`>> winHandles = ${winHandles[i]}`);
+        await browser.switchToWindow(winHandles[i]);
+        currWinTitle = await browser.getTitle();
+        if(currWinTitle=="Elemental Selenium: Receive a Free, Weekly Tip on Using Selenium like a Pro"){
+            await browser.switchToWindow(winHandles[i]);
+            let eleTitleTxt = await (await $(`<h1>`)).getText();
+            console.log(eleTitleTxt);
+            break;
+        }
+    }
+
+    await browser.switchToWindow(parentWinHandle);
+    let parentTitle = await browser.getTitle();
+    let parentHdrTxt = await $(`<h3>`).getText();
+    console.log(`>> Parent Win Header Txt : ${parentHdrTxt}`);
+
+    await browser.pause(3000);
 })
