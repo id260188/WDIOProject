@@ -31,7 +31,7 @@ Then(/^url should match with (.*)$/, async function(ExpectedUrl) {
 
 Given(/^A webpage is opened$/, async function(){
     console.log('Before opening browser...');
-    await browser.url("/windows");
+    await browser.url("/upload");
     await browser.setTimeout({implicit:15000,pageLoad: 10000}); //wait for 15 seconds for the element to appear & pageload applicable to entire page
     await browser.maximizeWindow();
     await browser.pause(5000);
@@ -102,30 +102,49 @@ When(/^perform web interactions$/,async function(){
     //     }
     // }
 
-    await (await $(`=Click Here`)).click();
-    await (await $(`=Elemental Selenium`)).click();
-    let parentWinHandle = await browser.getWindowHandle();
-    let currWinTitle = await browser.getTitle(); 
-    console.log(`>> title : ${currWinTitle}`);
-    await browser.pause(3000);
+    //Multiple Window handling
+    // await (await $(`=Click Here`)).click();
+    // await (await $(`=Elemental Selenium`)).click();
+    // let parentWinHandle = await browser.getWindowHandle();
+    // let currWinTitle = await browser.getTitle(); 
+    // console.log(`>> title : ${currWinTitle}`);
+    // await browser.pause(3000);
 
-    let winHandles = await browser.getWindowHandles();
-    for(let i=0; i< winHandles.length; i++){
-        console.log(`>> winHandles = ${winHandles[i]}`);
-        await browser.switchToWindow(winHandles[i]);
-        currWinTitle = await browser.getTitle();
-        if(currWinTitle=="Elemental Selenium: Receive a Free, Weekly Tip on Using Selenium like a Pro"){
-            await browser.switchToWindow(winHandles[i]);
-            let eleTitleTxt = await (await $(`<h1>`)).getText();
-            console.log(eleTitleTxt);
-            break;
-        }
-    }
+    // let winHandles = await browser.getWindowHandles();
+    // for(let i=0; i< winHandles.length; i++){
+    //     console.log(`>> winHandles = ${winHandles[i]}`);
+    //     await browser.switchToWindow(winHandles[i]);
+    //     currWinTitle = await browser.getTitle();
+    //     if(currWinTitle=="Elemental Selenium: Receive a Free, Weekly Tip on Using Selenium like a Pro"){
+    //         await browser.switchToWindow(winHandles[i]);
+    //         let eleTitleTxt = await (await $(`<h1>`)).getText();
+    //         console.log(eleTitleTxt);
+    //         break;
+    //     }
+    // }
 
-    await browser.switchToWindow(parentWinHandle);
-    let parentTitle = await browser.getTitle();
-    let parentHdrTxt = await $(`<h3>`).getText();
-    console.log(`>> Parent Win Header Txt : ${parentHdrTxt}`);
+    // await browser.switchToWindow(parentWinHandle);
+    // let parentTitle = await browser.getTitle();
+    // let parentHdrTxt = await $(`<h3>`).getText();
+    // console.log(`>> Parent Win Header Txt : ${parentHdrTxt}`);
 
-    await browser.pause(3000);
+    //JS alert handling
+    //await (await $(`button=Click for JS Alert`)).click();
+    //await (await $(`button=Click for JS Confirm`)).click();
+    // await (await $(`button=Click for JS Prompt`)).click();
+    // if(await browser.isAlertOpen()){
+    //     //await browser.acceptAlert();
+    //     let alertTxt = await browser.getAlertText();
+    //     console.log(`>> Alert Text - ${alertTxt}`);
+    //     await browser.sendAlertText("Hello Indradeep");
+    //     await browser.acceptAlert();
+    // }
+
+    //Basic authentication validation -> just change the baseUrl in wdio.conf.ts
+
+    //Upload function
+    //await (await $(`#file-upload`)).addValue("../../data/dumy.txt");
+    // await (await $(`#file-upload`)).addValue(`${process.cwd()}/data/dumy.txt`);
+    // await (await $(`#file-submit`)).click();
+    // await browser.pause(3000);
 })
