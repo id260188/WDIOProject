@@ -1,9 +1,10 @@
 import { Given, When, Then } from "@wdio/cucumber-framework";
 import chai from "chai";
 
+/*
 Given(/^user launches webbrowser$/, async function(){
     console.log('Before opening browser...');
-    await browser.url("https://www.google.com");
+    await browser.url("https://the-internet.herokuapp.com/tables");
     await browser.maximizeWindow();
     await browser.pause(5000);
     console.log('After opening browser...');
@@ -27,20 +28,21 @@ Then(/^url should match with (.*)$/, async function(ExpectedUrl) {
     chai.expect(url).to.equal(ExpectedUrl);
     console.log('>>>>>>>>>>>>>Execution ends>>>>>>>>>>>');
 
-})
+})*/
 
 Given(/^A webpage is opened$/, async function(){
     console.log('Before opening browser...');
-    await browser.url("/upload");
+    await browser.url("/");
     await browser.setTimeout({implicit:15000,pageLoad: 10000}); //wait for 15 seconds for the element to appear & pageload applicable to entire page
     await browser.maximizeWindow();
     await browser.pause(5000);
     //await browser.closeWindow();
     //await browser.pause(5000);
-    console.log('After opening browser...');
+    // console.log('After opening browser...');
+    // console.log(`>> BrowserObj: ${JSON.stringify(browser)}`);
 })
 
-When(/^perform web interactions$/,async function(){
+//When(/^perform web interactions$/,async function(){
     /*
         Actions:
         1. Click on the input hyperlink
@@ -147,4 +149,103 @@ When(/^perform web interactions$/,async function(){
     // await (await $(`#file-upload`)).addValue(`${process.cwd()}/data/dumy.txt`);
     // await (await $(`#file-submit`)).click();
     // await browser.pause(3000);
+
+    /*
+    Table handling
+    */
+//    let rowCount = await $$(`//table[@id="table1"]/tbody/tr`).length;
+//    console.log(`>> Row Count = ${rowCount}`);
+//    let colCount = await $$(`//table[@id="table1"]/thead/tr/th`).length;
+//    console.log(`>> Row Count = ${colCount}`);
+//    chai.expect(rowCount).to.equal(4);
+//    chai.expect(colCount).to.equal(6);
+
+   //Traverse through table rows
+//    let arr = [];
+//    for(let i=0;i < rowCount ; i++){
+//         let personObj = {
+//             lastName: "",
+//             firstName: "",
+//             email: "",
+//             due: "",
+//             website: "",
+//         }
+//         for(let j=0;j < colCount ;j++){
+//             let cellVal = await $(`//table[@id="table1"]/tbody/tr[${i + 1}]/td[${j + 1}]`).getText();
+//             //console.log(`>> Cell Value: ${cellVal}`);
+//             if(j===0) personObj.lastName = cellVal;
+//             if(j===1) personObj.firstName = cellVal;
+//             if(j===2) personObj.email = cellVal;
+//             if(j===3) personObj.due = cellVal;
+//             if(j===4) personObj.website = cellVal;
+       
+//         }
+//         arr.push(personObj);
+//    }
+
+//    console.log(`>> Entire table : ${JSON.stringify(arr)}`);
+
+// let arr = [];
+//    for(let i=0;i < rowCount ; i++){
+//         let personObj = {
+//             lastName: "",
+//             firstName: "",
+//             email: "",
+//             due: "",
+//             website: "",
+//         }
+//         for(let j=0;j < colCount ;j++){
+//             let cellVal = await $(`//table[@id="table1"]/tbody/tr[${i + 1}]/td[${j + 1}]`).getText();
+//             let firstName = await $(`//table[@id="table1"]/tbody/tr[${i + 1}]/td[2]`).getText();
+//             let lastName = await $(`//table[@id="table1"]/tbody/tr[${i + 1}]/td[1]`).getText();
+//             //console.log(`>> Cell Value: ${cellVal}`);
+//             if(firstName === "John" || lastName === "Bach"){
+//                 if(j===0) personObj.lastName = cellVal;
+//                 if(j===1) personObj.firstName = cellVal;
+//                 if(j===2) personObj.email = cellVal;
+//                 if(j===3) personObj.due = cellVal;
+//                 if(j===4) personObj.website = cellVal;
+//             }
+            
+       
+//         }
+//         if(personObj.firstName){
+//             arr.push(personObj);
+//         }
+        
+//    }
+
+//   console.log(`>> Entire table : ${JSON.stringify(arr)}`);
+
+/* single column iteration */
+// let arr = [];
+// for(let i=0; i< rowCount; i++){
+//     let cellVal = await $(`//table[@id="table1"]/tbody/tr[${i + 1}]/td[2]`).getText();
+//     arr.push(cellVal);
+// }
+    
+// console.log(`>> Column Values: ${arr}`);
+
+// //Get single value based on another cell value
+// let arr1 = [];
+// for(let i=0;i < rowCount; i++){
+//     let price = await $(`//table[@id="table1"]/tbody/tr[${i + 1}]/td[4]`).getText();
+//     let firstName = await (await $(`//table[@id="table1"]/tbody/tr[${i + 1}]/td[2]`)).getText();
+//     if(parseFloat(price.replace("$","")) > 50){
+//         arr1.push(firstName);
+//     }
+// }
+
+// console.log(`>> High price items: ${arr1}`);
+//})
+
+When(/^url should match with (.*)$/, async function (expectedUrl) {
+    console.log(`>> Expected URL - ${expectedUrl}`);
+    //Dynamic wait example -
+    await browser.waitUntil(async function(){
+        return await browser.getTitle() === "Selenium"//"WebDriver | Selenium";
+    },{timeout: 20000, interval:600, timeoutMsg: `Failed to load the page. Title: ${await browser.getTitle()}`})
+    let url = await browser.getUrl();
+    chai.expect(url).to.be.equal(expectedUrl);
+
 })

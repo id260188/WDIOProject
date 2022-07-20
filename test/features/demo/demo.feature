@@ -1,10 +1,10 @@
 Feature: demo feature
 
-    @demo1
+    #@demo
     Scenario Outline: Run demo feature
         Given user launches webbrowser
-        When search with <searchItem>
-        And click on the first search result
+       # When search with <searchItem>
+        # And click on the first search result
         Then url should match with <ExpectedUrl>
 
         Examples:
