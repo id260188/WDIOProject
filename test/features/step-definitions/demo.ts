@@ -32,16 +32,17 @@ Then(/^url should match with (.*)$/, async function(ExpectedUrl) {
 
 Given(/^A webpage is opened$/, async function(){
     console.log('Before opening browser...');
-    await browser.url("/tables");
+    await browser.url("/");
     await browser.setTimeout({implicit:15000,pageLoad: 10000}); //wait for 15 seconds for the element to appear & pageload applicable to entire page
     await browser.maximizeWindow();
     await browser.pause(5000);
     //await browser.closeWindow();
     //await browser.pause(5000);
-    console.log('After opening browser...');
+    // console.log('After opening browser...');
+    // console.log(`>> BrowserObj: ${JSON.stringify(browser)}`);
 })
 
-When(/^perform web interactions$/,async function(){
+//When(/^perform web interactions$/,async function(){
     /*
         Actions:
         1. Click on the input hyperlink
@@ -152,12 +153,12 @@ When(/^perform web interactions$/,async function(){
     /*
     Table handling
     */
-   let rowCount = await $$(`//table[@id="table1"]/tbody/tr`).length;
-   console.log(`>> Row Count = ${rowCount}`);
-   let colCount = await $$(`//table[@id="table1"]/thead/tr/th`).length;
-   console.log(`>> Row Count = ${colCount}`);
-   chai.expect(rowCount).to.equal(4);
-   chai.expect(colCount).to.equal(6);
+//    let rowCount = await $$(`//table[@id="table1"]/tbody/tr`).length;
+//    console.log(`>> Row Count = ${rowCount}`);
+//    let colCount = await $$(`//table[@id="table1"]/thead/tr/th`).length;
+//    console.log(`>> Row Count = ${colCount}`);
+//    chai.expect(rowCount).to.equal(4);
+//    chai.expect(colCount).to.equal(6);
 
    //Traverse through table rows
 //    let arr = [];
@@ -217,23 +218,34 @@ When(/^perform web interactions$/,async function(){
 //   console.log(`>> Entire table : ${JSON.stringify(arr)}`);
 
 /* single column iteration */
-let arr = [];
-for(let i=0; i< rowCount; i++){
-    let cellVal = await $(`//table[@id="table1"]/tbody/tr[${i + 1}]/td[2]`).getText();
-    arr.push(cellVal);
-}
+// let arr = [];
+// for(let i=0; i< rowCount; i++){
+//     let cellVal = await $(`//table[@id="table1"]/tbody/tr[${i + 1}]/td[2]`).getText();
+//     arr.push(cellVal);
+// }
     
-console.log(`>> Column Values: ${arr}`);
+// console.log(`>> Column Values: ${arr}`);
 
-//Get single value based on another cell value
-let arr1 = [];
-for(let i=0;i < rowCount; i++){
-    let price = await $(`//table[@id="table1"]/tbody/tr[${i + 1}]/td[4]`).getText();
-    let firstName = await (await $(`//table[@id="table1"]/tbody/tr[${i + 1}]/td[2]`)).getText();
-    if(parseFloat(price.replace("$","")) > 50){
-        arr1.push(firstName);
-    }
-}
+// //Get single value based on another cell value
+// let arr1 = [];
+// for(let i=0;i < rowCount; i++){
+//     let price = await $(`//table[@id="table1"]/tbody/tr[${i + 1}]/td[4]`).getText();
+//     let firstName = await (await $(`//table[@id="table1"]/tbody/tr[${i + 1}]/td[2]`)).getText();
+//     if(parseFloat(price.replace("$","")) > 50){
+//         arr1.push(firstName);
+//     }
+// }
 
-console.log(`>> High price items: ${arr1}`);
+// console.log(`>> High price items: ${arr1}`);
+//})
+
+When(/^url should match with (.*)$/, async function (expectedUrl) {
+    console.log(`>> Expected URL - ${expectedUrl}`);
+    //Dynamic wait example -
+    await browser.waitUntil(async function(){
+        return await browser.getTitle() === "Selenium"//"WebDriver | Selenium";
+    },{timeout: 20000, interval:600, timeoutMsg: `Failed to load the page. Title: ${await browser.getTitle()}`})
+    let url = await browser.getUrl();
+    chai.expect(url).to.be.equal(expectedUrl);
+
 })
