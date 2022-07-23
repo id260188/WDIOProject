@@ -1,6 +1,6 @@
 Feature: Web interactions
 
-    #@demo
+    @smoke
     Scenario Outline: sauceCode web interactions
         Given Login to saucedemo.com webpage
         Then inventory must list <NumberOfProducts>

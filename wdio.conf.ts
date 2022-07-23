@@ -1,7 +1,9 @@
 import type { Options } from '@wdio/types'
+import dotenv from "dotenv"
+dotenv.config()
 
 let headless = process.env.HEADLESS
-console.log(`>> The headless flag : ${headless}`)
+//console.log(`>> The headless flag : ${headless}`)
 export const config: Options.Testrunner = {
     //
     // ====================
@@ -97,7 +99,7 @@ export const config: Options.Testrunner = {
          */
         browserName: 'chrome',
         "goog:chromeOptions":{
-            args: headless.toUpperCase() === "Y"? ["--disable-web-secrity","--headless","--disable-dev-shm-usage","--no-sandbox","--window-size=1920*1080"]: []
+            args: headless==="Y"? ["--headless","--no-sandbox","--window-size=1920*1080"]:[]
         },
         acceptInsecureCerts: true
         // If outputDir is provided WebdriverIO can capture driver session logs
@@ -202,7 +204,7 @@ export const config: Options.Testrunner = {
         // <number> timeout for step definitions
         timeout: 60000,
         // <boolean> Enable this config to treat undefined definitions as warnings.
-        ignoreUndefinedDefinitions: false
+        ignoreUndefinedDefinitions: true
     },
     
     //

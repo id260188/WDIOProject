@@ -17,12 +17,13 @@
         "chai": "^4.3.6",
         "chromedriver": "^103.0.0",
         "devtools": "^7.20.7",
+        "dotenv": "^16.0.1",
         "ts-node": "^10.8.2",
         "typescript": "^4.7.4",
         "wdio-chromedriver-service": "^7.3.2"
     },
     "scripts": {
-        "demo": "set HEADLESS=N && npx wdio wdio.conf.ts --cucumberOpts:tagExpression='@demo'",
-        "smoke": "set HEADLESS=Y && npx wdio wdio.conf.ts --cucumberOpts:tagExpression='@smoke'"
+        "demo": "set HEADLESS=N && npx wdio wdio.conf.ts --cucumberOpts:tagExpression= 'demo'",
+        "smoke": "set HEADLESS=N && npx wdio wdio.conf.ts --cucumberOpts:tagExpression ='smoke'"
     }
 }

@@ -1,7 +1,7 @@
 import { Given, When, Then } from "@wdio/cucumber-framework";
 import chai from "chai";
 
-/*
+
 Given(/^user launches webbrowser$/, async function(){
     console.log('Before opening browser...');
     await browser.url("https://the-internet.herokuapp.com/tables");
@@ -10,7 +10,7 @@ Given(/^user launches webbrowser$/, async function(){
     console.log('After opening browser...');
 })
 
-When(/^search with (.*)$/, async function(searchItem){
+/*When(/^search with (.*)$/, async function(searchItem){
     console.log(`>> searchItem: ${searchItem}`);
     let elem = await $(`[name=q]`);
     await elem.setValue(searchItem);
@@ -30,7 +30,7 @@ Then(/^url should match with (.*)$/, async function(ExpectedUrl) {
 
 })*/
 
-Given(/^A webpage is opened$/, async function(){
+/*Given(/^A webpage is opened$/, async function(){
     console.log('Before opening browser...');
     await browser.url("/");
     await browser.setTimeout({implicit:15000,pageLoad: 10000}); //wait for 15 seconds for the element to appear & pageload applicable to entire page
@@ -40,7 +40,7 @@ Given(/^A webpage is opened$/, async function(){
     //await browser.pause(5000);
     // console.log('After opening browser...');
     // console.log(`>> BrowserObj: ${JSON.stringify(browser)}`);
-})
+})*/
 
 //When(/^perform web interactions$/,async function(){
     /*
@@ -239,7 +239,7 @@ Given(/^A webpage is opened$/, async function(){
 // console.log(`>> High price items: ${arr1}`);
 //})
 
-When(/^url should match with (.*)$/, async function (expectedUrl) {
+Then(/^url should match with (.*)$/, async function (expectedUrl) {
     console.log(`>> Expected URL - ${expectedUrl}`);
     //Dynamic wait example -
     await browser.waitUntil(async function(){
