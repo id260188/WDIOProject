@@ -1,5 +1,7 @@
 import type { Options } from '@wdio/types'
 
+/*let headless = process.env.HEADLESS
+console.log(`>> The headless flag : ${headless}`)*/
 export const config: Options.Testrunner = {
     //
     // ====================
@@ -84,8 +86,19 @@ export const config: Options.Testrunner = {
         // grid with only 5 firefox instances available you can make sure that not more than
         // 5 instances get started at a time.
         maxInstances: 5,
-        //
+        /**
+         * Additional Chrome options:
+         * --headless
+         * --no-sandbox
+         * --diable-gpu
+         * --proxy-server=http://domain
+         * binary=<location>
+         * --auth-server-whitelist="_"
+         */
         browserName: 'chrome',
+        /*"goog:chromeOptions":{
+            args: ["--disable-web-secrity","--headless","--disable-dev-shm-usage","--window-size=1920*1080"]
+        },*/
         acceptInsecureCerts: true
         // If outputDir is provided WebdriverIO can capture driver session logs
         // it is possible to configure which logTypes to include/exclude.
@@ -185,7 +198,7 @@ export const config: Options.Testrunner = {
         // <boolean> fail if there are any undefined or pending steps
         strict: false,
         // <string> (expression) only execute the features or scenarios with tags matching the expression
-        tagExpression: '@demo',
+        tagExpression: '',
         // <number> timeout for step definitions
         timeout: 60000,
         // <boolean> Enable this config to treat undefined definitions as warnings.

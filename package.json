@@ -21,6 +21,7 @@
         "wdio-chromedriver-service": "^7.3.2"
     },
     "scripts": {
-        "wdio": "wdio run test/wdio.conf.ts"
+        "demo": "npx wdio wdio.conf.ts --cucumberOpts:tagExpression '@demo'",
+        "smoke":"npx wdio wdio.conf.ts --cucumberOpts:tagExpression='@smoke'"
     }
 }
