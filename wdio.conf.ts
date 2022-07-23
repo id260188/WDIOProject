@@ -1,7 +1,7 @@
 import type { Options } from '@wdio/types'
 
-/*let headless = process.env.HEADLESS
-console.log(`>> The headless flag : ${headless}`)*/
+let headless = process.env.HEADLESS
+console.log(`>> The headless flag : ${headless}`)
 export const config: Options.Testrunner = {
     //
     // ====================
@@ -96,9 +96,9 @@ export const config: Options.Testrunner = {
          * --auth-server-whitelist="_"
          */
         browserName: 'chrome',
-        /*"goog:chromeOptions":{
-            args: ["--disable-web-secrity","--headless","--disable-dev-shm-usage","--window-size=1920*1080"]
-        },*/
+        "goog:chromeOptions":{
+            args: headless.toUpperCase() === "Y"? ["--disable-web-secrity","--headless","--disable-dev-shm-usage","--no-sandbox","--window-size=1920*1080"]: []
+        },
         acceptInsecureCerts: true
         // If outputDir is provided WebdriverIO can capture driver session logs
         // it is possible to configure which logTypes to include/exclude.
