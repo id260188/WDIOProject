@@ -5,7 +5,9 @@ Given(/^Login to saucedemo.com webpage$/,async function(){
     console.log(`>> User Name : ${process.env.TEST_STD_USERNAME}`);
     console.log(`>> Password : ${process.env.TEST_STD_PASSWORD}`);
     /* Launch browser */
-    await browser.url("https://www.saucedemo.com/");
+    //@ts-ignore
+    await browser.url(browser.config.sitURL);
+    //console.log(`>> demo url ->> ${JSON.stringify(browser.config)}`);
     await browser.setTimeout({implicit:15000,pageLoad:10000});
     await browser.maximizeWindow();
     
